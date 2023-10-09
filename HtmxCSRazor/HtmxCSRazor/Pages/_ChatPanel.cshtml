@@ -1,0 +1,13 @@
+﻿<div class="m-2 flex flex-col h-1/2">
+    <h1 class="mb-3">Messages</h1>
+    <div class="grow overflow-y-auto" hx-sse="connect:/messages-sse">
+        <div id="messages" hx-ext="sse" hx-trigger="sse:update-message" hx-get="/">
+            <vc:message-list/>
+        </div>
+    </div>
+
+    <div hx-target="#messages" class="px-10 my-10 flex" _="on htmx:afterRequest set #chatText.value to '' then call #chatText.focus()">
+        <input hx-get="/" type="text" id="chatText" name="chatText" hx-trigger="keydown[keyCode==13]" class="w-1/4 mr-10"/>
+        <button hx-get="/" hx-include="[name='chatText']" class="btn btn-primary">Send</button>
+    </div>
+</div>

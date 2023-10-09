@@ -1,0 +1,19 @@
+﻿@using HtmxCSRazor.Todo
+@model IEnumerable<TodoItem>
+
+@foreach (var todo in Model)
+{
+    <div id="todo-@todo.Id" class="todo-item my-1">
+        <div id="todo-@todo.Id-display" class="content-display flex flex-row">
+            <div class="mr-5">@todo.Text</div>
+            <button class="btn" _="on click toggle the *display of closest .content-display then toggle the *display of .content-edit in closest .todo-item">Edit</button>
+        </div>
+        <div id="todo-@todo.Id-edit" class="content-edit flex flex-row" style="display: none">
+            <form hx-target="#todos" hx-ext="morph" hx-get="/" hx-swap="none">
+                <input type="text" value="@todo.Text" name="todoNewValue" class="mr-5"/>
+                <button type="submit" class="btn">Save</button>
+                <input type="hidden" name="id" value="@todo.Id"/>
+            </form>
+        </div>
+    </div>
+}

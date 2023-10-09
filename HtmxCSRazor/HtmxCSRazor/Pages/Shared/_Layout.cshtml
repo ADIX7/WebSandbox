@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - HtmxCSRazor</title>
+    <link rel="stylesheet" href="~/index.css" asp-append-version="true"/>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.2/dist/full.css" rel="stylesheet" type="text/css"/>
+</head>
+<body class="h-screen">
+<main role="main" class="h-full">
+    @RenderBody()
+</main>
+
+<script src="https://unpkg.com/htmx.org@1.9.6"></script>
+<script src="https://unpkg.com/htmx.org/dist/ext/sse.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/idiomorph/dist/idiomorph-ext.min.js"></script>
+<script src="https://unpkg.com/hyperscript.org@0.9.11"></script>
+
+
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,16 @@
+﻿.content-display div {
+    width: 200px;
+}
+
+.content-edit input {
+    width: 200px;    
+}
+
+.todo-container {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+.todo-container > * {
+    min-height: 0;
+}
