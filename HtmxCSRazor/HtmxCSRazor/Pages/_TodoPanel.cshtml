@@ -1,13 +1,13 @@
-﻿<div class="m-2 h-1/2 todo-container">
+﻿<div class="m-2 h-1/2 todo-container" hx-ext="morph">
     <h1 class="mb-3">Todos</h1>
     <div class="m-2 overflow-y-auto" hx-sse="connect:/messages-sse">
-        <div id="todos" hx-ext="sse" hx-trigger="sse:update-todos" hx-get="/" hx-swap="morph">
+        <div id="todos" hx-ext="sse" hx-trigger="sse:update-todos" hx-get="/" hx-swap="morph:innerHTML">
             <vc:todo-list/>
         </div>
     </div>
 
     <div hx-target="#todos" class="px-10 mb-10 flex" _="on htmx:afterRequest set #newTodo.value to '' then call #newTodo.focus()">
-        <input hx-get="/" type="text" id="newTodo" name="newTodo" hx-trigger="keydown[keyCode==13]" class="w-1/4 mr-10" hx-swap="morph"/>
+        <input hx-get="/" type="text" id="newTodo" name="newTodo" hx-trigger="keydown[keyCode==13]" class="w-1/4 mr-10" hx-swap="morph:innerHTML"/>
         <button hx-get="/" hx-include="[name='newTodo']" hx-swap="morph" class="btn btn-primary">Add</button>
     </div>
 </div>

@@ -3,17 +3,17 @@
 
 @foreach (var todo in Model)
 {
-    <div id="todo-@todo.Id" class="todo-item my-1">
-        <div id="todo-@todo.Id-display" class="content-display flex flex-row">
+    <todo-item id="todo-@todo.Id" class="my-1">
+        <div slot="display" id="todo-@todo.Id-display" class="content-display flex flex-row">
             <div class="mr-5">@todo.Text</div>
-            <button class="btn" _="on click toggle the *display of closest .content-display then toggle the *display of .content-edit in closest .todo-item">Edit</button>
+            <button class="btn" _="on click send toggleTodoState">Edit</button>
         </div>
-        <div id="todo-@todo.Id-edit" class="content-edit flex flex-row" style="display: none">
-            <form hx-target="#todos" hx-ext="morph" hx-get="/" hx-swap="none">
+        <div slot="edit" id="todo-@todo.Id-edit" class="content-edit flex flex-row">
+            <form hx-target="#todos" hx-get="/" hx-swap="none">
                 <input type="text" value="@todo.Text" name="todoNewValue" class="mr-5"/>
-                <button type="submit" class="btn">Save</button>
+                <button type="submit" class="btn" _="on click send toggleTodoState">Save</button>
                 <input type="hidden" name="id" value="@todo.Id"/>
             </form>
         </div>
-    </div>
+    </todo-item>
 }

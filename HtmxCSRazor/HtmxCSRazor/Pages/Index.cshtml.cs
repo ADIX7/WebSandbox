@@ -9,8 +9,6 @@ namespace HtmxCSRazor.Pages;
 
 public class IndexModel(MessageService messageService, TodoService todoService) : PageModel
 {
-    public IEnumerable<string> Messages => messageService.GetMessages();
-
     public async Task<IActionResult> OnGetAsync(
         [FromQuery] string? chatText,
         [FromQuery] string? newTodo,

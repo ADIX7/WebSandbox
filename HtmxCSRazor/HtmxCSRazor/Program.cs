@@ -1,4 +1,3 @@
-using HtmxCSRazor;
 using HtmxCSRazor.Services;
 using HtmxCSRazor.Todo;
 using Lib.AspNetCore.ServerSentEvents;
