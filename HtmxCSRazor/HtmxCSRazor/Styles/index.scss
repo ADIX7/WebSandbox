@@ -9,8 +9,8 @@
 .todo-container {
     display: grid;
     grid-template-rows: auto 1fr auto;
-}
 
-.todo-container > * {
-    min-height: 0;
+    > * {
+        min-height: 0;
+    }
 }
