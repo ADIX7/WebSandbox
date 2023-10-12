@@ -1,7 +1,7 @@
-using CommonWebApi;
 using CommonWebApi.Todo;
 using Lib.AspNetCore.ServerSentEvents;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +23,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 app.MapServerSentEvents("/server-events");
 
 app.UseCors(options => options
@@ -30,35 +31,19 @@ app.UseCors(options => options
     .AllowAnyMethod()
     .AllowAnyHeader());
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
+app.MapGet("/api/todo", ([FromServices] TodoService todoService) => todoService.GetTodos());
+app.MapPut("/api/todo",
+    ([FromServices] TodoService todoService, [FromBody] NewTodoItem newTodoItem)
+        => todoService.AddTodo(newTodoItem)
+);
+app.MapPost("/api/todo",
+    [SwaggerResponse(200)]
+    [SwaggerResponse(404)]
+    async ([FromServices] TodoService todoService, [FromBody] TodoItem updatedTodo)
+        =>
     {
-        var forecast = Enumerable.Range(1, 5).Select(index =>
-                new WeatherForecast
-                (
-                    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    Random.Shared.Next(-20, 55),
-                    summaries[Random.Shared.Next(summaries.Length)]
-                ))
-            .ToArray();
-        return forecast;
-    })
-    .WithName("GetWeatherForecast")
-    .WithOpenApi();
-
-app.MapGet("/api/todos", ([FromServices] TodoService todoService) => todoService.GetTodos());
-app.MapPost("/api/todo", ([FromServices] TodoService todoService, [FromBody] TodoItem updatedTodo) => todoService.UpdateTodo(updatedTodo));
+        if (!await todoService.UpdateTodo(updatedTodo)) return Results.NotFound();
+        return Results.Ok();
+    });
 
 app.Run();
-
-namespace CommonWebApi
-{
-    record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-    {
-        public int TemperatureF => 32 + (int) (TemperatureC / 0.5556);
-    }
-}

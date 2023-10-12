@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./message-list.component.scss']
 })
 export class MessageListComponent {
-
+  messages: string[] = [];
 }

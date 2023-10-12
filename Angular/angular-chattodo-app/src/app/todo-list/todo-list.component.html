@@ -1,14 +1,31 @@
-<h1>Todo list</h1>
+<div class="todo-container h-full">
+  <h1>Todo list</h1>
 
-<div id="todos">
-  <div *ngFor="let item of todos">
-    <div *ngIf="!item.isEditVisible" class="display flex flex-rows">
-      <div>{{ item.text }}</div>
-      <button class="btn" (click)="onEditClick(item.id)">Edit</button>
+  <div id="todos" class="m-2 overflow-y-auto">
+    <div *ngFor="let item of todos" class="my-1">
+      <div *ngIf="!item.isEditVisible" class="display flex flex-rows" class="content-display flex flex-row">
+        <div class="mr-5">{{ item.text }}</div>
+        <button class="btn" (click)="edit(item.id)">Edit</button>
+      </div>
+      <div *ngIf="item.isEditVisible" class="edit" class="content-edit flex flex-row">
+        <input #editedText type="text" [value]="item.text" class="mr-5" />
+        <button class="btn" (click)="saveEdited(item.id, editedText.value)">
+          Save
+        </button>
+      </div>
     </div>
-    <div *ngIf="item.isEditVisible" class="edit">
-      <input type="text" [value]="item.text" />
-      <button class="btn" (click)="onSaveClick(item.id)">Save</button>
-    </div>
+  </div>
+
+  <div class="px-10 mb-10 flex">
+    <input
+      #newTodo
+      type="text"
+      id="newTodo"
+      name="newTodo"
+      class="w-1/4 mr-10"
+    />
+    <button class="btn btn-primary" (click)="addTodo(newTodo.value)">
+      Add
+    </button>
   </div>
 </div>

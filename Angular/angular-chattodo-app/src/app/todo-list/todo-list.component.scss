@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.content-display div {
+  width: 200px;
+}
+
+.content-edit input {
+  width: 200px;
+}
+
+.todo-container {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+
+  > * {
+      min-height: 0;
+  }
+}
