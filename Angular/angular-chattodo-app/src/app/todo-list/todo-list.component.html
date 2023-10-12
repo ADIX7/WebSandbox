@@ -1,0 +1,14 @@
+<h1>Todo list</h1>
+
+<div id="todos">
+  <div *ngFor="let item of todos">
+    <div *ngIf="!item.isEditVisible" class="display flex flex-rows">
+      <div>{{ item.text }}</div>
+      <button class="btn" (click)="onEditClick(item.id)">Edit</button>
+    </div>
+    <div *ngIf="item.isEditVisible" class="edit">
+      <input type="text" [value]="item.text" />
+      <button class="btn" (click)="onSaveClick(item.id)">Save</button>
+    </div>
+  </div>
+</div>
