@@ -9,7 +9,7 @@
             <button class="btn" _="on click send toggleTodoState">Edit</button>
         </div>
         <div slot="edit" id="todo-@todo.Id-edit" class="content-edit flex flex-row">
-            <form hx-target="#todos" hx-get="/" hx-swap="none">
+            <form hx-target="#todos" hx-get="?handler=updatetodo" hx-swap="none">
                 <input type="text" value="@todo.Text" name="todoNewValue" class="mr-5"/>
                 <button type="submit" class="btn" _="on click send toggleTodoState">Save</button>
                 <input type="hidden" name="id" value="@todo.Id"/>

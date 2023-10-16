@@ -9,45 +9,53 @@ namespace HtmxCSRazor.Pages;
 
 public class IndexModel(MessageService messageService, TodoService todoService) : PageModel
 {
-    public async Task<IActionResult> OnGetAsync(
-        [FromQuery] string? chatText,
-        [FromQuery] string? newTodo,
-        [FromQuery] string? todoNewValue,
-        [FromQuery] string? id,
-        [FromHeader(Name = "HX-Target")] string? hxTarget
-    )
+    public IActionResult OnGet()
     {
         if (Request.IsHtmx())
         {
-            if (hxTarget == "messages")
-            {
-                if (chatText is not null)
-                {
-                    await messageService.AddMessage(chatText);
-                }
-
-                return ViewComponent(GetViewComponentName<MessageListViewComponent>());
-            }
-
-            if (hxTarget == "todos")
-            {
-                if (newTodo is not null)
-                {
-                    await todoService.AddTodo(new NewTodoItem(newTodo));
-                }
-                else if(todoNewValue is not null && id is not null)
-                {
-                    await todoService.UpdateTodo(int.Parse(id), new NewTodoItem(todoNewValue));
-                }
-
-                return ViewComponent(GetViewComponentName<TodoListViewComponent>());
-            }
-
             throw new NotImplementedException();
         }
 
         return Page();
     }
 
-    private string GetViewComponentName<T>() where T : ViewComponent => typeof(T).Name.Replace("ViewComponent", "");
+    public IActionResult OnGetMessages()
+    {
+        return GetMessagesView();
+    }
+
+    public async Task<IActionResult> OnGetAddMessageAsync([FromQuery] string chatText)
+    {
+        await messageService.AddMessage(chatText);
+        return GetMessagesView();
+    }
+
+    public IActionResult GetMessagesView()
+    {
+        return ViewComponent(typeof(MessageListViewComponent));
+    }
+
+    public IActionResult OnGetTodos()
+    {
+        return GetTodosView();
+    }
+
+    public async Task<IActionResult> OnGetAddTodoAsync([FromQuery] string newTodo)
+    {
+        await todoService.AddTodo(new NewTodoItem(newTodo));
+        return GetTodosView();
+    }
+
+    public async Task<IActionResult> OnGetUpdateTodoAsync(
+        [FromQuery] string todoNewValue,
+        [FromQuery] string id)
+    {
+        await todoService.UpdateTodo(int.Parse(id), new NewTodoItem(todoNewValue));
+        return GetTodosView();
+    }
+
+    private IActionResult GetTodosView()
+    {
+        return ViewComponent(typeof(TodoListViewComponent));
+    }
 }
