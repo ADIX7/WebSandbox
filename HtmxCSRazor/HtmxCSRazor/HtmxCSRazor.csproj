@@ -71,6 +71,10 @@
     <PackageReference Include="AspNetCore.SassCompiler" Version="1.69.3" />
     <PackageReference Include="Htmx" Version="1.5.0" />
     <PackageReference Include="Lib.AspNetCore.ServerSentEvents" Version="8.3.0" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
+    <PackageReference Include="Npgsql" Version="7.0.6" />
+    <PackageReference Include="PetaPoco.Compiled" Version="6.0.617" />
+    <PackageReference Include="Riok.Mapperly" Version="3.2.0" />
   </ItemGroup>
 
   <ItemGroup>

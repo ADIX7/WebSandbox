@@ -1,0 +1,4 @@
+CREATE TABLE Todos (
+    Id Integer Primary Key Generated Always as Identity,
+    Text TEXT NOT NULL
+);

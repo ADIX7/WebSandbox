@@ -1,0 +1,4 @@
+CREATE TABLE Todos (
+   id INTEGER PRIMARY KEY IDENTITY(1,1),
+   text TEXT
+)

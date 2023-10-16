@@ -1,4 +1,25 @@
 services:
+  #SQL Express Server
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    restart: always
+    environment:
+      ACCEPT_EULA: Y
+      MSSQL_SA_PASSWORD: P4ssw0rd
+      MSSQL_PID: Express
+    ports:
+      - "1433:1433"
+
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+    ports:
+      - "5432:5432"
+
   webapp:
     build:
       context: .
