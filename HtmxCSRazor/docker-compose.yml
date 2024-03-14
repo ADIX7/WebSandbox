@@ -26,5 +26,8 @@ services:
       dockerfile: Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:80
+      # These are in appsettings.Development.json for development
+      #- "Todo__ConnectionStringPostgres=Host=127.0.0.1;Port=5432;Username=user;Password=password;Database=db"
+      #- "Todo__ConnectionStringMssql=Data Source=127.0.0.1,1433;User=sa;Password=P4ssw0rd;Encrypt=no;"
     ports:
       - "80:80"
